@@ -1,0 +1,18 @@
+body{
+    background-color: bisque;
+   
+
+
+}
+
+.search{
+    width: 500px;
+    transform: translate(0%,0%);
+}
+.search h1{
+    color: black;
+}
+
+.table{
+    background-color: white;
+}

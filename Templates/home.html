@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Melodify{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'base_style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <h1>Enter a Username</h1>
+        <div class="search">
+            
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>Search a github username</h1>
+                    <form role="search" method="GET" >
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search username" name="username" value="">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;
+                            Search
+                        </button>
+                    </form>
+                    
+                </div>
+            </div>
+            
+
+        </div>
+        <a href="{% url 'logout' %}"> 
+            <button class="btn btn-primary" type="submit">Logout</button>
+        </a>
+      
+
+        {% if user %}
+        
+            {% if user.success %}
+            
+
+            
+                <p><h1>{{ user.login }}</h1> has <strong>{{ user.public_repos }}</strong> public repositories.</p>
+                <div class="info">
+                    <div class="panel panel-default" style="background-color: bisque;">
+                        <div class="panel-body">
+            
+                            <div class="table-responsive" >
+                                <table class="table table-hover">
+                                    <h1>Git_Repos</h1>
+                                    <thead>
+                                        <tr>
+                                           
+                                            <th>Name of the repo</th>
+                                            <th>Main language</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in repos %}
+
+                                            <tr>    
+                                                    <td>
+                                                        
+                                                        <form method="GET" role="form" action="{% url 'accounts:commits' %}">
+                                                        
+                                                            <div class="form-group">
+                                                                <input type="hidden" name=username1 value="{{i.owner.login}}">
+                                                                <input type="hidden" name="repo" value="{{i.name}}">{{i.name}} </a>
+
+                                                            </div>
+                                                        
+                                                        <button type="submit" class="btn btn-primary">View commit history</button>
+                                                        
+                                                            
+                                                    
+                                                        </form>
+                                                        
+                                                       
+
+                                                    </td>
+                                                <td>{{i.language}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                            
+                                    </tbody>
+                                </table>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Incorrect username!</strong> 
+            </div>
+            
+            {% endif %}  
+        {% endif %}
+
+
+     
+    
+
+    </div>
+
+     
+
+    
+</body>
+</html>
