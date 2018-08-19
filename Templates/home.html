@@ -16,97 +16,111 @@
 <body>
     
     <div class="container-fluid">
-        <h1>Enter a Username</h1>
-        <div class="search">
-            
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h1>Search a github username</h1>
-                    <form role="search" method="GET" >
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search username" name="username" value="">
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;
-                            Search
-                        </button>
-                    </form>
-                    
+        {% if request.user.is_authenticated %}
+            <h1>Enter a Username</h1>
+            <div class="search">
+                
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h1>Search a github username</h1>
+                        <form role="search" method="GET" >
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search username" name="username" value="">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;
+                                Search
+                            </button>
+                        </form>
+                        
+                    </div>
                 </div>
+                
+
             </div>
+            <a href="{% url 'logout' %}"> 
+                <button class="btn btn-primary" type="submit">Logout</button>
+            </a>
             
-
-        </div>
-        <a href="{% url 'logout' %}"> 
-            <button class="btn btn-primary" type="submit">Logout</button>
-        </a>
-      
-
-        {% if user %}
         
-            {% if user.success %}
+        
             
 
             
-                <p><h1>{{ user.login }}</h1> has <strong>{{ user.public_repos }}</strong> public repositories.</p>
-                <div class="info">
-                    <div class="panel panel-default" style="background-color: bisque;">
-                        <div class="panel-body">
+
+            {% if user %}
             
-                            <div class="table-responsive" >
-                                <table class="table table-hover">
-                                    <h1>Git_Repos</h1>
-                                    <thead>
-                                        <tr>
-                                           
-                                            <th>Name of the repo</th>
-                                            <th>Main language</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for i in repos %}
+                {% if user.success %}
+                
 
-                                            <tr>    
-                                                    <td>
-                                                        
-                                                        <form method="GET" role="form" action="{% url 'accounts:commits' %}">
-                                                        
-                                                            <div class="form-group">
-                                                                <input type="hidden" name=username1 value="{{i.owner.login}}">
-                                                                <input type="hidden" name="repo" value="{{i.name}}">{{i.name}} </a>
-
-                                                            </div>
-                                                        
-                                                        <button type="submit" class="btn btn-primary">View commit history</button>
-                                                        
-                                                            
-                                                    
-                                                        </form>
-                                                        
-                                                       
-
-                                                    </td>
-                                                <td>{{i.language}}</td>
-                                            </tr>
-                                        {% endfor %}
+                
+                    <p><h1>{{ user.login }}</h1> has <strong>{{ user.public_repos }}</strong> public repositories.</p>
+                    <div class="info">
+                        <div class="panel panel-default" style="background-color: bisque;">
+                            <div class="panel-body">
+                
+                                <div class="table-responsive" >
+                                    <table class="table table-hover">
+                                        <h1>Git_Repos</h1>
+                                        <thead>
+                                            <tr>
                                             
-                                    </tbody>
-                                </table>
-                            
+                                                <th>Name of the repo</th>
+                                                <th>Main language</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in repos %}
+
+                                                <tr>    
+                                                        <td>
+                                                            
+                                                            <form method="GET" role="form" action="{% url 'accounts:commits' %}">
+                                                            
+                                                                <div class="form-group">
+                                                                    <input type="hidden" name=username1 value="{{i.owner.login}}">
+                                                                    <input type="hidden" name="repo" value="{{i.name}}">{{i.name}} </a>
+
+                                                                </div>
+                                                            
+                                                            <button type="submit" class="btn btn-primary">View commit history</button>
+                                                            
+                                                                
+                                                        
+                                                            </form>
+                                                            
+                                                        
+
+                                                        </td>
+                                                    <td>{{i.language}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                                
+                                        </tbody>
+                                    </table>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
+                {% else %}
+
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Incorrect username!</strong> 
                 </div>
-            {% else %}
-
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong>Incorrect username!</strong> 
-            </div>
-            
-            {% endif %}  
+                
+                {% endif %}  
+            {% endif %}
+        {% else %}
+                
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong><h1>Login First!!!</h1></strong> 
+                </div>
+                
+        
         {% endif %}
-
 
      
     

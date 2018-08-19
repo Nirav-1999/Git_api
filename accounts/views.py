@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django import views
+from django.http import request
 from django.views.generic import CreateView,TemplateView
 from django.urls import reverse_lazy
 import requests
@@ -17,11 +18,13 @@ class SignUpView(CreateView):
 def github_repos(request):
     user={}
     repos=[]
-    if 'username' in request.GET:
-        username=request.GET['username']
-        user=git.user_profile(username)
-        repos=git.user_repos(username)
-        print(user)
+    if request.user.is_authenticated:
+
+        if 'username' in request.GET:
+            username=request.GET['username']
+            user=git.user_profile(username)
+            repos=git.user_repos(username)
+            print(user)
     return render(request,'home.html',{
         'user':user,
         'repos':repos,
