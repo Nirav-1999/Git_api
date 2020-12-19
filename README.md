@@ -17,9 +17,8 @@ Views.py uses this git.py file and displays the required templates when it is ca
 When a user logs in the following screen appears:
  
 ![picture](https://bitbucket.org/Nirav-jain/git_api/raw/master/Screenshots/FirstPage.png)
-
 On searching the username
-![picture](https://github.com/Nirav-1999/Git_api/Screenshots/AfterSearch.png)
+![picture](https://github.com/Nirav-1999/Git_api/tree/master/Screenshots/AfterSearch.png)
 
 
 On clicking View commit history:
