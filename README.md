@@ -19,8 +19,7 @@ When a user logs in the following screen appears:
 ![picture](https://bitbucket.org/Nirav-jain/git_api/raw/master/Screenshots/FirstPage.png)
 
 On searching the username
-
-![picture](https://bitbucket.org/Nirav-jain/git_api/raw/master/Screenshots/AfterSearch.png)
+![picture](https://github.com/Nirav-1999/Git_api/Screenshots/AfterSearch.png)
 
 
 On clicking View commit history:
